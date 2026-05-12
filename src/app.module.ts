@@ -4,7 +4,6 @@ import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { PostModule } from './post/post.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { CommentModule } from './comment/comment.module';
 import { AuthModule } from './auth/auth.module';
 import { MetricsModule } from './auth/metrics.module';
 
@@ -18,7 +17,6 @@ import { MetricsModule } from './auth/metrics.module';
     }),
     UserModule,
     PostModule,
-    CommentModule,
     AuthModule, 
     MetricsModule,
   ],

@@ -11,7 +11,7 @@ export class CpmQueryDto {
 
     @Type(() => Number)
     @IsNumber()
-    @Min(0)
+    @Min(1)
     impressions: number;
 
 }
