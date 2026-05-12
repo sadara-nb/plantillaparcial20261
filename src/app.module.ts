@@ -11,7 +11,7 @@ import { MetricsModule } from './auth/metrics.module';
   imports: [
     TypeOrmModule.forRoot({
       type: 'better-sqlite3',
-      database: 'banco.db', // archivo local
+      database: 'instagram.db', // archivo local
       synchronize: true,
       autoLoadEntities: true,
     }),
@@ -31,24 +31,3 @@ export class AppModule {}
 // 4. Le pregunta al AuthService si la key existe.
 // 5. Si no existe, lanza UnauthorizedException.
 // 6. Si existe, retorna true y deja pasar la petición.
-
-
-// @Module({
-//   imports: [
-//     TypeOrmModule.forRoot({
-//       type: 'better-sqlite3',
-//       database: 'banco.db', // archivo local
-//       entities: [Account, Loan],
-//       synchronize: true,
-//       autoLoadEntities: true,
-// solo dev
-//       //true crea o altera las tablas automáticamente al arrancar, comparando
-//       // las entidades con el esquema real de la base de datos.
-//     }),
-//     AuthModule,
-//     CalcModule,
-//     FinanceModule,
-//     BankModule, // ← nuevo
-//   ],
-// })
-// export class AppModule {}
