@@ -1,9 +1,11 @@
-import { Controller, Get, Post, Body, Param } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, ParseIntPipe, UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { CreatePostDto } from 'src/post/dto/create-post.dto';
+import { ApiKeyGuard } from 'src/auth/api-key.guard';
 
-@Controller('user')
+@Controller('users')
+@UseGuards(ApiKeyGuard)
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
@@ -17,13 +19,13 @@ export class UserController {
     return this.userService.findAll();
   }
 
-  @Get(':id/posts')
-  findOne(@Param('id') id: string) {
-    return this.userService.findOne(+id);
+  @Post(':id/posts')
+  createPost(@Param('id', ParseIntPipe) id: number, @Body() createPostDto: CreatePostDto) {
+    return this.userService.createPost(id, createPostDto);
   }
 
-  @Post(':id/posts')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.userService.update(+id, updateUserDto);
+  @Get(':id/posts')
+  findPosts(@Param('id', ParseIntPipe) id: number) {
+    return this.userService.findPosts(id);
   }
 }

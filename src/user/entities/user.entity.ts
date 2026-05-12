@@ -1,25 +1,23 @@
-import { IsInt, IsOptional, IsString } from "class-validator";
-import { Post } from "src/post/entities/post.entity";
-import { OneToMany } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, CreateDateColumn } from 'typeorm';
+import { Post } from 'src/post/entities/post.entity';
 
+@Entity()
 export class User {
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @IsInt()
-    id: number;
+  @Column()
+  username: string;
 
-    @IsString()
-    username: string;
+  @Column({ nullable: true })
+  bio: string;
 
-    @IsString()
-    @IsOptional()
-    bio: string;
+  @Column({ default: 0 })
+  followers: number;
 
-    @IsInt()
-    followers: number;
+  @CreateDateColumn()
+  createdAt: Date;
 
-    createdAt: Date;
-
-    @OneToMany(() => Post, post => post.user)
-    posts: Post[];
+  @OneToMany(() => Post, post => post.user)
+  posts: Post[];
 }
-

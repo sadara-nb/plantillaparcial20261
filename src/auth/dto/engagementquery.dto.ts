@@ -14,6 +14,6 @@ export class EngagementQueryDto {
 
   @Type(() => Number) // string → number (query params)
   @IsNumber()
-  @Min(0)
+  @Min(1)
   followers: number;
 }

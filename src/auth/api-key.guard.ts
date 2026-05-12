@@ -12,7 +12,7 @@ export class ApiKeyGuard implements CanActivate {
     const req = ctx.switchToHttp().getRequest();
     const key = req.headers['x-api-key'];
     if (!key || !this.auth.isValidKey(key)) {
-      throw new UnauthorizedException();
+      throw new UnauthorizedException('API Key requerida');
     }
     return true;
   }

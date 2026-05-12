@@ -7,13 +7,11 @@ import { Injectable } from "@nestjs/common";
 export class MetricsService {
     private keys: Set<string> = new Set();
 
-    engagement(dto: EngagementQueryDto){
-        const { likes } = dto;
-        const {comments} = dto;
-        const {followers} = dto;
-        return {
-            engagement: (likes + comments) / followers * 100
-        };
+    engagement(dto: EngagementQueryDto) {
+    const { likes, comments, followers } = dto;
+    return {
+        rate: (likes + comments) / followers * 100,  
+    };
     }
 
     cpm(dto: CpmQueryDto){

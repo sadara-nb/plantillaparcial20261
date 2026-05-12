@@ -1,17 +1,12 @@
-import { IsInt } from "class-validator";
-import { IsString } from "class-validator/types/decorator/typechecker/IsString";
-import { User } from "src/user/entities/user.entity";
-import { ManyToOne, OneToMany } from "typeorm";
+import { IsString, IsNotEmpty, IsNumber, IsOptional, Min } from 'class-validator';
 
 export class CreatePostDto {
-        @IsInt()
-        id: number;
-    
-        @IsInt()
-        likes: number;
-    
-        @IsString()
-        caption: string;
-    
-        createdAt: Date;
+  @IsString()
+  @IsNotEmpty()
+  caption: string;
+
+  @IsOptional()
+  @IsNumber()
+  @Min(0)
+  likes?: number;
 }

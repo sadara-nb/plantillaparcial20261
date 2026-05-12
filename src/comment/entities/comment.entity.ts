@@ -1,21 +1,20 @@
-import { IsInt, IsString } from "class-validator";
-import { Post } from "src/post/entities/post.entity";
-import { ManyToOne } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn } from 'typeorm';
+import { Post } from 'src/post/entities/post.entity';
 
+@Entity()
 export class Comment {
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @IsInt()
-    id: number;
+  @Column()
+  content: string;
 
-    @IsString()
-    content: string;
+  @Column()
+  author: string;
 
-    @IsString()
-    author: string;
+  @CreateDateColumn()
+  createdAt: Date;
 
-    createdAt: Date;
-
-    @ManyToOne(() => Post, post => post.comments)
-    post: Post;
-
+  @ManyToOne(() => Post, post => post.comments)
+  post: Post;
 }

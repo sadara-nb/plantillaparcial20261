@@ -1,27 +1,21 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { Injectable } from '@nestjs/common';
-import { CreatePostDto } from './dto/create-post.dto';
-import { UpdatePostDto } from './dto/update-post.dto';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Post } from './entities/post.entity';
+import { Comment } from 'src/comment/entities/comment.entity';
+import { CreateCommentDto } from 'src/comment/dto/create-comment.dto';
 
 @Injectable()
 export class PostService {
-  create(createPostDto: CreatePostDto) {
-    return 'This action adds a new post';
-  }
+  constructor(
+    @InjectRepository(Post) private postRepo: Repository<Post>,
+    @InjectRepository(Comment) private commentRepo: Repository<Comment>,
+  ) {}
 
-  findAll() {
-    return `This action returns all post`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} post`;
-  }
-
-  update(id: number, updatePostDto: UpdatePostDto) {
-    return `This action updates a #${id} post`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} post`;
+  async createComment(postId: number, dto: CreateCommentDto): Promise<Comment> {
+    const post = await this.postRepo.findOneBy({ id: postId });
+    if (!post) throw new NotFoundException(`Post ${postId} no existe`);
+    const comment = this.commentRepo.create({ ...dto, post });
+    return this.commentRepo.save(comment);
   }
 }
