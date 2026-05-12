@@ -11,7 +11,7 @@ export class MetricsService {
     const { likes, comments, followers } = dto;
     return {
         rate: (likes + comments) / followers * 100,  
-    };
+        };
     }
 
     cpm(dto: CpmQueryDto){
