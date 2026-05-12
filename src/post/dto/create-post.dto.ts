@@ -1,4 +1,4 @@
-import { IsString, IsNotEmpty, IsNumber, IsOptional, Min } from 'class-validator';
+import { IsString, IsNotEmpty, IsOptional, Min, IsInt } from 'class-validator';
 
 export class CreatePostDto {
   @IsString()
@@ -6,7 +6,7 @@ export class CreatePostDto {
   caption: string;
 
   @IsOptional()
-  @IsNumber()
+  @IsInt()
   @Min(0)
   likes?: number;
 }
